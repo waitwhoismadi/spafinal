@@ -34,17 +34,12 @@ func (l Level) String() string {
 	}
 }
 
-// Define a custom Logger type. This holds the output destination that the log entries
-// will be written to, the minimum severity level that log entries will be written for,
-// plus a mutex for coordinating the writes.
 type Logger struct {
 	out      io.Writer
 	minLevel Level
 	mu       sync.Mutex
 }
 
-// Return a new Logger instance which writes log entries at or above a minimum severity
-// level to a specific output destination.
 func New(out io.Writer, minLevel Level) *Logger {
 	return &Logger{
 		out:      out,
@@ -52,9 +47,6 @@ func New(out io.Writer, minLevel Level) *Logger {
 	}
 }
 
-// Declare some helper methods for writing log entries at the different levels. Notice
-// that these all accept a map as the second parameter which can contain any arbitrary
-// 'properties' that you want to appear in the log entry.
 func (l *Logger) PrintInfo(message string, properties map[string]string) {
 	l.print(LevelInfo, message, properties)
 }
